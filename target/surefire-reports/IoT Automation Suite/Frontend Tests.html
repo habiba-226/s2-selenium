@@ -1,0 +1,719 @@
+<html>
+<head>
+<title>TestNG:  Frontend Tests</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>Frontend Tests</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>62/6/0</td>
+</tr><tr>
+<td>Started on:</td><td>Sun May 17 15:55:52 EEST 2026</td>
+</tr>
+<tr><td>Total time:</td><td>877 seconds (877671 ms)</td>
+</tr><tr>
+<td>Included groups:</td><td></td>
+</tr><tr>
+<td>Excluded groups:</td><td></td>
+</tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.dxc.iot.tests.LoginTests.testAccountLocked_A046()'><b>testAccountLocked_A046</b><br>Test class: com.dxc.iot.tests.LoginTests</td>
+<td><div><pre>java.lang.AssertionError: TC-FE-A046: Expected locked-banner after 3 failed attempts expected [true] but found [false]
+	at com.dxc.iot.tests.LoginTests.testAccountLocked_A046(LoginTests.java:156)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 32 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1085479446", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1085479446'><pre>java.lang.AssertionError: TC-FE-A046: Expected locked-banner after 3 failed attempts expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at com.dxc.iot.tests.LoginTests.testAccountLocked_A046(LoginTests.java:156)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</pre></div></td>
+<td>86</td>
+<td>com.dxc.iot.tests.LoginTests@206a70ef</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@1c8a2bec</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.cssSelector: .modal-card .modal-close (tried for 20 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.168, chrome: {chromedriverVersion: 148.0.7778.167 (65db666ac2c..., userDataDir: C:\Users\habiba\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63858}, goog:processID: 35696, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63858/devtoo..., se:cdpVersion: 148.0.7778.168, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 32ae325e2fa2c94ec7da02b396d9cc46
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.dxc.iot.base.BasePage.click(BasePage.java:31)
+	at com.dxc.iot.pages.HomePage.closeModal(HomePage.java:96)
+	at com.dxc.iot.tests.HomeTests.testHomePageFeatures(HomeTests.java:154)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 29 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace146972277", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace146972277'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.cssSelector: .modal-card .modal-close (tried for 20 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.168, chrome: {chromedriverVersion: 148.0.7778.167 (65db666ac2c..., userDataDir: C:\Users\habiba\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63858}, goog:processID: 35696, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63858/devtoo..., se:cdpVersion: 148.0.7778.168, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 32ae325e2fa2c94ec7da02b396d9cc46
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.dxc.iot.base.BasePage.click(BasePage.java:31)
+	at com.dxc.iot.pages.HomePage.closeModal(HomePage.java:96)
+	at com.dxc.iot.tests.HomeTests.testHomePageFeatures(HomeTests.java:154)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</pre></div></td>
+<td>21</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@737445ab</td>
+<td><div><pre>java.lang.AssertionError: TC-FE-A025: banner text was &apos;traffic thresholds saved successfully.&apos; but expected to contain &apos;thresholds saved.&apos; expected [true] but found [false]
+	at com.dxc.iot.tests.SettingsTests.testSettings(SettingsTests.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 32 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1293635489", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1293635489'><pre>java.lang.AssertionError: TC-FE-A025: banner text was &apos;traffic thresholds saved successfully.&apos; but expected to contain &apos;thresholds saved.&apos; expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at com.dxc.iot.tests.SettingsTests.testSettings(SettingsTests.java:95)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</pre></div></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@6c6cde22</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //span[contains(@class,&apos;detail-label&apos;)] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.168, chrome: {chromedriverVersion: 148.0.7778.167 (65db666ac2c..., userDataDir: C:\Users\habiba\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52297}, goog:processID: 7912, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52297/devtoo..., se:cdpVersion: 148.0.7778.168, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 2813a2c544ba0fe558f7979163662f90
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.dxc.iot.tests.HomeTests.testHomePageFeatures(HomeTests.java:215)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 29 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1340154762", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1340154762'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //span[contains(@class,&apos;detail-label&apos;)] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.168, chrome: {chromedriverVersion: 148.0.7778.167 (65db666ac2c..., userDataDir: C:\Users\habiba\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52297}, goog:processID: 7912, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52297/devtoo..., se:cdpVersion: 148.0.7778.168, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 2813a2c544ba0fe558f7979163662f90
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.dxc.iot.tests.HomeTests.testHomePageFeatures(HomeTests.java:215)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</pre></div></td>
+<td>11</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@1a445b5</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.cssSelector: .modal-card .modal-close (tried for 20 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.168, chrome: {chromedriverVersion: 148.0.7778.167 (65db666ac2c..., userDataDir: C:\Users\habiba\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60215}, goog:processID: 37252, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60215/devtoo..., se:cdpVersion: 148.0.7778.168, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: e4b6ed4dd2c25419a9585f6c070d51a6
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.dxc.iot.base.BasePage.click(BasePage.java:31)
+	at com.dxc.iot.pages.HomePage.closeModal(HomePage.java:96)
+	at com.dxc.iot.tests.HomeTests.testHomePageFeatures(HomeTests.java:163)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 29 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1994154385", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1994154385'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.cssSelector: .modal-card .modal-close (tried for 20 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.168, chrome: {chromedriverVersion: 148.0.7778.167 (65db666ac2c..., userDataDir: C:\Users\habiba\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60215}, goog:processID: 37252, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60215/devtoo..., se:cdpVersion: 148.0.7778.168, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: e4b6ed4dd2c25419a9585f6c070d51a6
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.dxc.iot.base.BasePage.click(BasePage.java:31)
+	at com.dxc.iot.pages.HomePage.closeModal(HomePage.java:96)
+	at com.dxc.iot.tests.HomeTests.testHomePageFeatures(HomeTests.java:163)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</pre></div></td>
+<td>22</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@5135b459</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.cssSelector: .modal-card .modal-close (tried for 20 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.168, chrome: {chromedriverVersion: 148.0.7778.167 (65db666ac2c..., userDataDir: C:\Users\habiba\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52827}, goog:processID: 36976, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52827/devtoo..., se:cdpVersion: 148.0.7778.168, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 9c00d298bab254d47317e6d9c261bb21
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.dxc.iot.base.BasePage.click(BasePage.java:31)
+	at com.dxc.iot.pages.HomePage.closeModal(HomePage.java:96)
+	at com.dxc.iot.tests.HomeTests.testHomePageFeatures(HomeTests.java:60)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 29 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace724932458", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace724932458'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.cssSelector: .modal-card .modal-close (tried for 20 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.168, chrome: {chromedriverVersion: 148.0.7778.167 (65db666ac2c..., userDataDir: C:\Users\habiba\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52827}, goog:processID: 36976, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52827/devtoo..., se:cdpVersion: 148.0.7778.168, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 9c00d298bab254d47317e6d9c261bb21
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.dxc.iot.base.BasePage.click(BasePage.java:31)
+	at com.dxc.iot.pages.HomePage.closeModal(HomePage.java:96)
+	at com.dxc.iot.tests.HomeTests.testHomePageFeatures(HomeTests.java:60)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:739)
+	at org.testng.TestRunner.run(TestRunner.java:614)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</pre></div></td>
+<td>22</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.dxc.iot.tests.ProfileTests.testChangePassword()'><b>testChangePassword</b><br>Test class: com.dxc.iot.tests.ProfileTests<br>Parameters: [Ljava.lang.Object;@79273a4f</td>
+<td></td>
+<td>3</td>
+<td>com.dxc.iot.tests.ProfileTests@292b08d6</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.ProfileTests.testProfileNavigation_A010()'><b>testProfileNavigation_A010</b><br>Test class: com.dxc.iot.tests.ProfileTests</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.ProfileTests@292b08d6</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@7a79a5d6</td>
+<td></td>
+<td>45</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SessionTests.testUnauthorizedAccessToSettings_A066()'><b>testUnauthorizedAccessToSettings_A066</b><br>Test class: com.dxc.iot.tests.SessionTests</td>
+<td></td>
+<td>0</td>
+<td>com.dxc.iot.tests.SessionTests@45752059</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SessionTests.testLogoutClearsStorage_A034()'><b>testLogoutClearsStorage_A034</b><br>Test class: com.dxc.iot.tests.SessionTests</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SessionTests@45752059</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.LoginTests.testPasswordToggle_A044()'><b>testPasswordToggle_A044</b><br>Test class: com.dxc.iot.tests.LoginTests</td>
+<td></td>
+<td>0</td>
+<td>com.dxc.iot.tests.LoginTests@206a70ef</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@ebad9a</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.LoginTests.testLogin()'><b>testLogin</b><br>Test class: com.dxc.iot.tests.LoginTests<br>Parameters: [Ljava.lang.Object;@2d4a3e13</td>
+<td></td>
+<td>0</td>
+<td>com.dxc.iot.tests.LoginTests@206a70ef</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SessionTests.testUnauthorizedAccessToProfile_A033()'><b>testUnauthorizedAccessToProfile_A033</b><br>Test class: com.dxc.iot.tests.SessionTests</td>
+<td></td>
+<td>0</td>
+<td>com.dxc.iot.tests.SessionTests@45752059</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@38617f1c</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SessionTests.testAuthenticatedUserBlockedFromSignup_A068()'><b>testAuthenticatedUserBlockedFromSignup_A068</b><br>Test class: com.dxc.iot.tests.SessionTests</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.SessionTests@45752059</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@be706e2</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.ProfileTests.testCancelCollapsesPasswordForm_A049()'><b>testCancelCollapsesPasswordForm_A049</b><br>Test class: com.dxc.iot.tests.ProfileTests</td>
+<td></td>
+<td>12</td>
+<td>com.dxc.iot.tests.ProfileTests@292b08d6</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.ProfileTests.testChangePassword()'><b>testChangePassword</b><br>Test class: com.dxc.iot.tests.ProfileTests<br>Parameters: [Ljava.lang.Object;@7bd694a5</td>
+<td></td>
+<td>3</td>
+<td>com.dxc.iot.tests.ProfileTests@292b08d6</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SignUpTests.testSignUp()'><b>testSignUp</b><br>Test class: com.dxc.iot.tests.SignUpTests<br>Parameters: [Ljava.lang.Object;@65e22def</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SignUpTests@34a3d150</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SignUpTests.testLoginLinkNavigation_A048()'><b>testLoginLinkNavigation_A048</b><br>Test class: com.dxc.iot.tests.SignUpTests</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.SignUpTests@34a3d150</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@19e78fa</td>
+<td></td>
+<td>21</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@46bd6c87</td>
+<td></td>
+<td>22</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.ProfileTests.testProfileDataDisplay_A011()'><b>testProfileDataDisplay_A011</b><br>Test class: com.dxc.iot.tests.ProfileTests</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.ProfileTests@292b08d6</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SessionTests.testUnauthorizedAccessToHome_A032()'><b>testUnauthorizedAccessToHome_A032</b><br>Test class: com.dxc.iot.tests.SessionTests</td>
+<td></td>
+<td>0</td>
+<td>com.dxc.iot.tests.SessionTests@45752059</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.LoginTests.testLogin()'><b>testLogin</b><br>Test class: com.dxc.iot.tests.LoginTests<br>Parameters: [Ljava.lang.Object;@68e5c7ae</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.LoginTests@206a70ef</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@5418a659</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@14404be2</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@22b0f013</td>
+<td></td>
+<td>32</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SignUpTests.testSignUp()'><b>testSignUp</b><br>Test class: com.dxc.iot.tests.SignUpTests<br>Parameters: [Ljava.lang.Object;@5b9499fe</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.SignUpTests@34a3d150</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@77a19366</td>
+<td></td>
+<td>32</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.LoginTests.testCreateOneLinkNavigation_A045()'><b>testCreateOneLinkNavigation_A045</b><br>Test class: com.dxc.iot.tests.LoginTests</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.LoginTests@206a70ef</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SessionTests.testSidebarLogoutFromSettings_A065()'><b>testSidebarLogoutFromSettings_A065</b><br>Test class: com.dxc.iot.tests.SessionTests</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SessionTests@45752059</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.LoginTests.testLogin()'><b>testLogin</b><br>Test class: com.dxc.iot.tests.LoginTests<br>Parameters: [Ljava.lang.Object;@650aa077</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.LoginTests@206a70ef</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SignUpTests.testSignUp()'><b>testSignUp</b><br>Test class: com.dxc.iot.tests.SignUpTests<br>Parameters: [Ljava.lang.Object;@6b8280e6</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SignUpTests@34a3d150</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@3b8a063d</td>
+<td></td>
+<td>4</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SessionTests.testAuthenticatedUserBlockedFromLogin_A067()'><b>testAuthenticatedUserBlockedFromLogin_A067</b><br>Test class: com.dxc.iot.tests.SessionTests</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SessionTests@45752059</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testInfoMetricChips_A055()'><b>testInfoMetricChips_A055</b><br>Test class: com.dxc.iot.tests.SettingsTests</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@7c9d2ed7</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@454056b</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.LoginTests.testLogin()'><b>testLogin</b><br>Test class: com.dxc.iot.tests.LoginTests<br>Parameters: [Ljava.lang.Object;@a0c5be</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.LoginTests@206a70ef</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@75be3cdf</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.ProfileTests.testChangePassword()'><b>testChangePassword</b><br>Test class: com.dxc.iot.tests.ProfileTests<br>Parameters: [Ljava.lang.Object;@57b711b6</td>
+<td></td>
+<td>3</td>
+<td>com.dxc.iot.tests.ProfileTests@292b08d6</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.ProfileTests.testChangePassword()'><b>testChangePassword</b><br>Test class: com.dxc.iot.tests.ProfileTests<br>Parameters: [Ljava.lang.Object;@369fb99a</td>
+<td></td>
+<td>22</td>
+<td>com.dxc.iot.tests.ProfileTests@292b08d6</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@52518ee1</td>
+<td></td>
+<td>44</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SessionTests.testBUG_LocalStoragePersists_A031()'><b>testBUG_LocalStoragePersists_A031</b><br>Test class: com.dxc.iot.tests.SessionTests</td>
+<td></td>
+<td>4</td>
+<td>com.dxc.iot.tests.SessionTests@45752059</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@71689ee2</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@38b7b02f</td>
+<td></td>
+<td>33</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@3df473e8</td>
+<td></td>
+<td>3</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SessionTests.testSidebarNavFromProfile_A064()'><b>testSidebarNavFromProfile_A064</b><br>Test class: com.dxc.iot.tests.SessionTests</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.SessionTests@45752059</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@65d3a83</td>
+<td></td>
+<td>44</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@1a60b0c4</td>
+<td></td>
+<td>22</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@1953197a</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@27154b20</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SignUpTests.testRemoveAvatar_A047()'><b>testRemoveAvatar_A047</b><br>Test class: com.dxc.iot.tests.SignUpTests</td>
+<td></td>
+<td>21</td>
+<td>com.dxc.iot.tests.SignUpTests@34a3d150</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SignUpTests.testSignUp()'><b>testSignUp</b><br>Test class: com.dxc.iot.tests.SignUpTests<br>Parameters: [Ljava.lang.Object;@75d982d3</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.SignUpTests@34a3d150</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettingsPrePopulate_A051()'><b>testSettingsPrePopulate_A051</b><br>Test class: com.dxc.iot.tests.SettingsTests</td>
+<td></td>
+<td>4</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettingsPageStructure_A024()'><b>testSettingsPageStructure_A024</b><br>Test class: com.dxc.iot.tests.SettingsTests</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@72a2b17d</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@b7da2c4</td>
+<td></td>
+<td>32</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@426a4301</td>
+<td></td>
+<td>2</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@17931cc0</td>
+<td></td>
+<td>44</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SignUpTests.testSignUp()'><b>testSignUp</b><br>Test class: com.dxc.iot.tests.SignUpTests<br>Parameters: [Ljava.lang.Object;@43c87306</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.SignUpTests@34a3d150</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@772a370d</td>
+<td></td>
+<td>11</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.ProfileTests.testAvatarUpload_A050()'><b>testAvatarUpload_A050</b><br>Test class: com.dxc.iot.tests.ProfileTests</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.ProfileTests@292b08d6</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.HomeTests.testHomePageFeatures()'><b>testHomePageFeatures</b><br>Test class: com.dxc.iot.tests.HomeTests<br>Parameters: [Ljava.lang.Object;@29478556</td>
+<td></td>
+<td>1</td>
+<td>com.dxc.iot.tests.HomeTests@36ebc363</td></tr>
+<tr>
+<td title='com.dxc.iot.tests.SettingsTests.testSettings()'><b>testSettings</b><br>Test class: com.dxc.iot.tests.SettingsTests<br>Parameters: [Ljava.lang.Object;@4fe687b5</td>
+<td></td>
+<td>45</td>
+<td>com.dxc.iot.tests.SettingsTests@22555ebf</td></tr>
+</table><p>
+</body>
+</html>

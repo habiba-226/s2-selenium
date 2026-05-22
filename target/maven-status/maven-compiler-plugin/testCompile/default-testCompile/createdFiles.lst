@@ -1,0 +1,6 @@
+com\dxc\iot\tests\ProfileTests.class
+com\dxc\iot\tests\SettingsTests.class
+com\dxc\iot\tests\SessionTests.class
+com\dxc\iot\tests\HomeTests.class
+com\dxc\iot\tests\LoginTests.class
+com\dxc\iot\tests\SignUpTests.class
