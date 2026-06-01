@@ -28,7 +28,11 @@ public class SignUpTests extends BaseTest {
     // Pull values out of the Excel row by column position
     String testCaseId = cell(row, 0); // col A — testCaseId
     String scenario = cell(row, 1); // col B — scenario
-    String avatarPath = cell(row, 2); // col C — avatarPath
+    String avatarPath = cell(row, 2);
+
+    if (!avatarPath.isEmpty()) {
+      avatarPath = new File(avatarPath).getAbsolutePath();
+    } // col C — avatarPath
     String firstName = cell(row, 3); // col D — firstName
     String lastName = cell(row, 4); // col E — lastName
     String email = cell(row, 5); // col F — email
@@ -106,6 +110,7 @@ public class SignUpTests extends BaseTest {
     System.out.println("Running: TC-FE-A047 — Remove Avatar Resets to Placeholder");
 
     String avatarPath = new File("src/test/resources/testdata/avatars/valid.png").getAbsolutePath();
+
 
     SignUpPage signUpPage = new SignUpPage(driver);
     signUpPage.open(ConfigReader.get("base.url"));

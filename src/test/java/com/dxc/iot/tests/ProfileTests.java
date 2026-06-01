@@ -130,7 +130,7 @@ public class ProfileTests extends BaseTest {
     LoginPage loginPage = new LoginPage(driver);
     loginPage.open(ConfigReader.get("base.url"));
     loginPage.enterEmail("valid@test.com");
-    loginPage.enterPassword("Pass@123");
+    loginPage.enterPassword(ConfigReader.get("test.password"));
     loginPage.clickSignIn();
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -161,6 +161,11 @@ public class ProfileTests extends BaseTest {
 
     ProfilePage profilePage = new ProfilePage(driver);
     profilePage.open(ConfigReader.get("base.url"));
+
+    if (profilePage.isPasswordFormVisible()) {
+      profilePage.clickCancelPasswordForm();
+      try { Thread.sleep(500); } catch (Exception ignored) {}
+    }
 
     // Open the form
     profilePage.openChangePasswordForm();

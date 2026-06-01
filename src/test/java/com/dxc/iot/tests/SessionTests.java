@@ -5,6 +5,7 @@ import com.dxc.iot.pages.LoginPage;
 import com.dxc.iot.pages.ProfilePage;
 import com.dxc.iot.pages.SettingsPage;
 import com.dxc.iot.utils.ConfigReader;
+import jdk.jfr.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,6 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+
 
 public class SessionTests extends BaseTest {
 
@@ -249,5 +251,47 @@ public class SessionTests extends BaseTest {
 
                 Assert.assertTrue(driver.getCurrentUrl().contains("/home"),
                                 "TC-FE-A068 FAILED: Logged-in user should be redirected away from /signup to /home");
+        }
+
+        @Test
+        @Description("Verifies the HTTP interceptor attaches JWT token correctly across multiple " +
+                "protected page navigations in a single session. " +
+                "Login once then navigate /home → /traffic → /settings → /profile — all must load.")
+        public void testJwtInterceptorPersistsAcrossNavigation() {
+                System.out.println("Running: JWT Interceptor — Token persists across navigation");
+
+                LoginPage loginPage = new LoginPage(driver);
+                loginPage.open(ConfigReader.get("base.url"));
+                loginPage.enterEmail(ConfigReader.get("test.email"));
+                loginPage.enterPassword(ConfigReader.get("test.password"));
+                loginPage.clickSignIn();
+
+                new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.urlContains("/home"));
+
+                // /home loaded
+                Assert.assertTrue(driver.getCurrentUrl().contains("/home"),
+                        "JWT: /home did not load after login");
+
+                // Navigate to /traffic — interceptor must attach token
+                driver.get(ConfigReader.get("base.url") + "/traffic");
+                new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.urlContains("/traffic"));
+                Assert.assertTrue(driver.getCurrentUrl().contains("/traffic"),
+                        "JWT: /traffic did not load — interceptor may not be attaching token");
+
+                // Navigate to /settings
+                driver.get(ConfigReader.get("base.url") + "/settings");
+                new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.urlContains("/settings"));
+                Assert.assertTrue(driver.getCurrentUrl().contains("/settings"),
+                        "JWT: /settings did not load — interceptor may not be attaching token");
+
+                // Navigate to /profile
+                driver.get(ConfigReader.get("base.url") + "/profile");
+                new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.urlContains("/profile"));
+                Assert.assertTrue(driver.getCurrentUrl().contains("/profile"),
+                        "JWT: /profile did not load — interceptor may not be attaching token");
         }
 }

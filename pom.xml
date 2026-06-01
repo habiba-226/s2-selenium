@@ -51,6 +51,19 @@
             <artifactId>log4j-core</artifactId>
             <version>2.23.1</version>
         </dependency>
+        <!-- Allure TestNG -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.29.0</version>
+        </dependency>
+
+        <!-- AspectJ (required for Allure annotations/hooks) -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.22.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -60,9 +73,15 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
+
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22.1/aspectjweaver-1.9.22.1.jar"
+                    </argLine>
+
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
+
                 </configuration>
             </plugin>
         </plugins>

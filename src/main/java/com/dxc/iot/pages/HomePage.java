@@ -30,9 +30,14 @@ public class HomePage extends BasePage {
 
   // Sensor cards (3)
   private final By sensorCards = By.cssSelector(".sensor-card");
-  private final By trafficCard = By.xpath("(//div[contains(@class,'sensor-card')])[1]");
-  private final By airCard = By.xpath("(//div[contains(@class,'sensor-card')])[2]");
-  private final By streetLightCard = By.xpath("(//div[contains(@class,'sensor-card')])[3]");
+  private final By trafficCard =
+          By.cssSelector(".sensor-card:nth-child(1)");
+
+  private final By airCard =
+          By.cssSelector(".sensor-card:nth-child(2)");
+
+  private final By streetLightCard =
+          By.cssSelector(".sensor-card:nth-child(3)");
 
   // Quick actions
   private final By quickActionSettings = By
@@ -77,15 +82,21 @@ public class HomePage extends BasePage {
 
   // Modal Methods
   public void openTrafficModal() {
-    click(trafficCard);
+    ((org.openqa.selenium.JavascriptExecutor) driver)
+            .executeScript("arguments[0].click();",
+                    driver.findElements(By.cssSelector(".sensor-card")).get(0));
   }
 
   public void openAirPollutionModal() {
-    click(airCard);
+    ((org.openqa.selenium.JavascriptExecutor) driver)
+            .executeScript("arguments[0].click();",
+                    driver.findElements(By.cssSelector(".sensor-card")).get(1));
   }
 
   public void openStreetLightModal() {
-    click(streetLightCard);
+    ((org.openqa.selenium.JavascriptExecutor) driver)
+            .executeScript("arguments[0].click();",
+                    driver.findElements(By.cssSelector(".sensor-card")).get(2));
   }
 
   public boolean isModalOpen() {
@@ -93,7 +104,9 @@ public class HomePage extends BasePage {
   }
 
   public void closeModal() {
-    click(modalClose);
+    ((org.openqa.selenium.JavascriptExecutor) driver)
+            .executeScript("arguments[0].click();",
+                    driver.findElement(modalClose));
   }
 
   // Location Methods

@@ -112,7 +112,9 @@ public class ProfilePage extends BasePage {
   // Password change flow 
 
   public ProfilePage openChangePasswordForm() {
-    click(passwordToggleBtn);
+    if (!isPasswordFormVisible()) {
+      click(passwordToggleBtn);
+    }
     waitVisible(currentPasswordInput);
     return this;
   }

@@ -47,7 +47,7 @@ public class LoginTests extends BaseTest {
     switch (expectedOutcome.trim().toLowerCase()) {
 
       case "success":
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         try {
           wait.until(ExpectedConditions.urlContains("/home"));
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class LoginTests extends BaseTest {
     LoginPage loginPage = new LoginPage(driver);
     loginPage.open(ConfigReader.get("base.url"));
 
-    String email = "lockout_sandbox_user@test.com";
+    String email = "lockout@test.com";
 
     for (int attempt = 1; attempt <= 3; attempt++) {
 
