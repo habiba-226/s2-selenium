@@ -559,11 +559,14 @@ public class TrafficDashboardTests extends BaseTest {
         TrafficDashboardPage p = loginAndOpenTrafficDashboard();
 
         if (start.equalsIgnoreCase("recovery")) {
-            p.setStartDate("2026-05-27T23:00");
-            p.setEndDate("2026-05-26T10:00");
+            // First set a reversed (invalid) range
+            p.setStartDate("2026-06-29T23:00");
+            p.setEndDate("2026-06-28T10:00");
             try { Thread.sleep(1500); } catch (Exception ignored) {}
-            p.setStartDate("2026-05-26T10:00");
-            p.setEndDate("2026-05-26T23:59");
+            // Then correct to a valid range using today's date
+            String today = java.time.LocalDate.now().toString();
+            p.setStartDate(today + "T00:00");
+            p.setEndDate(today + "T23:59");
         } else {
             p.setStartDate(start);
             p.setEndDate(end);

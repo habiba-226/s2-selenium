@@ -6,7 +6,7 @@
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
 
-    <test name="Regression Tests" preserve-order="true">
+    <test name="Sprint 1 &amp; 2 Regression" preserve-order="true">
         <classes>
             <class name="com.dxc.iot.tests.SignUpTests"/>
             <class name="com.dxc.iot.tests.LoginTests"/>
@@ -14,6 +14,14 @@
             <class name="com.dxc.iot.tests.SettingsTests"/>
             <class name="com.dxc.iot.tests.HomeTests"/>
             <class name="com.dxc.iot.tests.SessionTests"/>
+        </classes>
+    </test>
+
+    <test name="Sprint 3 Regression" preserve-order="true">
+        <classes>
+            <class name="com.dxc.iot.tests.EntryPointTests"/>
+            <class name="com.dxc.iot.tests.NotificationTests"/>
+            <class name="com.dxc.iot.tests.TrafficDashboardTests"/>
         </classes>
     </test>
 

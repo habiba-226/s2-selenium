@@ -29,7 +29,8 @@ public class ProfilePage extends BasePage {
         "//span[contains(@class,'info-value')]");
   }
 
-  // Change Password card 
+  // Change Password card
+  // Note: this same button toggles between "Change" (form closed) and "Cancel" (form open).
   private final By passwordToggleBtn = By.cssSelector(".toggle-btn");
   private final By currentPasswordInput = By.cssSelector("input[formcontrolname='currentPassword']");
   private final By newPasswordInput = By.id("newPassword");
@@ -112,9 +113,10 @@ public class ProfilePage extends BasePage {
   // Password change flow 
 
   public ProfilePage openChangePasswordForm() {
-    if (!isPasswordFormVisible()) {
-      click(passwordToggleBtn);
-    }
+    // Always click the toggle to open the form. The old guard clause was skipping
+    // this click when the input existed in the DOM (even if hidden), which broke
+    // TC-FE-A049 because Cancel was never actually shown.
+    click(passwordToggleBtn);
     waitVisible(currentPasswordInput);
     return this;
   }
@@ -175,8 +177,9 @@ public class ProfilePage extends BasePage {
     return getText(newPwdFieldError);
   }
 
-  // Password form visibility 
+  // Password form visibility
   public void clickCancelPasswordForm() {
+    // The same button toggles between "Change" and "Cancel" based on form state.
     click(passwordToggleBtn);
   }
 

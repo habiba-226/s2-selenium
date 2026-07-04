@@ -142,22 +142,24 @@ public class HomeTests extends BaseTest {
         Assert.assertFalse(homePage.isLocationDropdownVisible(), "Location dropdown stayed open");
         break;
 
-      // Air Pollution Modal Interactivity
+      // Air Pollution Card Navigates to /air-pollution (updated for Sprint 4 — feature now exists)
       case "TC-FE-A042":
         homePage.openAirPollutionModal();
-        Assert.assertTrue(homePage.isModalOpen(), "Air Pollution modal did not open");
-        homePage.closeModal();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".modal-overlay")));
-        Assert.assertFalse(homePage.isModalOpen(), "Air Pollution modal did not close");
+        wait.until(ExpectedConditions.urlContains("/air-pollution"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/air-pollution"),
+            "TC-FE-A042: Expected URL to contain '/air-pollution' but was: " + driver.getCurrentUrl());
+        driver.navigate().back();
+        wait.until(ExpectedConditions.urlContains("/home"));
         break;
 
-      // Street Light Modal Interactivity
+      // Street Light Card Navigates to /street-light (updated for Sprint 4 — feature now exists)
       case "TC-FE-A043":
         homePage.openStreetLightModal();
-        Assert.assertTrue(homePage.isModalOpen(), "Street Light modal did not open");
-        homePage.closeModal();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".modal-overlay")));
-        Assert.assertFalse(homePage.isModalOpen(), "Street Light modal did not close");
+        wait.until(ExpectedConditions.urlContains("/street-light"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/street-light"),
+            "TC-FE-A043: Expected URL to contain '/street-light' but was: " + driver.getCurrentUrl());
+        driver.navigate().back();
+        wait.until(ExpectedConditions.urlContains("/home"));
         break;
 
       // Modal closes on backdrop click

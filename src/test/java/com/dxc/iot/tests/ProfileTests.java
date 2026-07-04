@@ -172,8 +172,9 @@ public class ProfileTests extends BaseTest {
     Assert.assertTrue(profilePage.isPasswordFormVisible(),
         "TC-FE-A049: Password form should be visible after clicking 'Change'");
 
-    // Cancel it
+    // Cancel it — allow more time for the form to collapse
     profilePage.clickCancelPasswordForm();
+    try { Thread.sleep(1500); } catch (Exception ignored) {}
     Assert.assertFalse(profilePage.isPasswordFormVisible(),
         "TC-FE-A049: Password form should be hidden after clicking 'Cancel'");
   }

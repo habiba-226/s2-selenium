@@ -59,33 +59,31 @@ public class EntryPointTests extends BaseTest {
     }
 
     @Test
-    @Story("Air Pollution card opens modal overlay")
+    @Story("Air Pollution card navigates to /air-pollution (Sprint 4 — feature now exists)")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Clicks the Air Pollution card and asserts a modal appears. URL stays /home.")
+    @Description("Clicks the Air Pollution card and asserts navigation to /air-pollution.")
     public void testAirPollutionCardOpensModal_EP003() {
         System.out.println("Running: EP-003");
         EntryPointPage home = loginAndOpenHome();
         home.clickAirPollutionCard();
-        try { Thread.sleep(1000); } catch (Exception ignored) {}
-        Assert.assertTrue(home.isModalVisible(),
-                "EP-003: modal did not appear after clicking Air Pollution card");
-        Assert.assertTrue(driver.getCurrentUrl().contains("/home"),
-                "EP-003: URL changed unexpectedly. Got: " + driver.getCurrentUrl());
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("/air-pollution"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/air-pollution"),
+                "EP-003: Expected URL to contain '/air-pollution' but was: " + driver.getCurrentUrl());
     }
 
     @Test
-    @Story("Street Light card opens modal overlay")
+    @Story("Street Light card navigates to /street-light (Sprint 4 — feature now exists)")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Clicks the Street Light card and asserts a modal appears. URL stays /home.")
+    @Description("Clicks the Street Light card and asserts navigation to /street-light.")
     public void testStreetLightCardOpensModal_EP004() {
         System.out.println("Running: EP-004");
         EntryPointPage home = loginAndOpenHome();
         home.clickStreetLightCard();
-        try { Thread.sleep(1000); } catch (Exception ignored) {}
-        Assert.assertTrue(home.isModalVisible(),
-                "EP-004: modal did not appear after clicking Street Light card");
-        Assert.assertTrue(driver.getCurrentUrl().contains("/home"),
-                "EP-004: URL changed unexpectedly. Got: " + driver.getCurrentUrl());
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("/street-light"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/street-light"),
+                "EP-004: Expected URL to contain '/street-light' but was: " + driver.getCurrentUrl());
     }
 
     @Test
@@ -111,36 +109,36 @@ public class EntryPointTests extends BaseTest {
     }
 
     @Test
-    @Story("Modal closes when X button clicked")
+    @Story("Back navigation from Air Pollution returns to /home (Sprint 4 — feature now exists)")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Opens Air Pollution modal then clicks the close button. Asserts modal disappears.")
+    @Description("Navigates to /air-pollution then clicks browser Back. Asserts return to /home.")
     public void testModalClosesOnXButton_EP006() {
         System.out.println("Running: EP-006");
         EntryPointPage home = loginAndOpenHome();
         home.clickAirPollutionCard();
-        try { Thread.sleep(1000); } catch (Exception ignored) {}
-        Assert.assertTrue(home.isModalVisible(),
-                "EP-006: modal did not open");
-        home.clickModalCloseButton();
-        try { Thread.sleep(700); } catch (Exception ignored) {}
-        Assert.assertFalse(home.isModalVisible(),
-                "EP-006: modal still visible after clicking X");
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("/air-pollution"));
+        driver.navigate().back();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("/home"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/home"),
+                "EP-006: Back navigation did not return to /home");
     }
 
     @Test
-    @Story("Modal closes when clicking outside it")
+    @Story("Back navigation from Street Light returns to /home (Sprint 4 — feature now exists)")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Opens Street Light modal then clicks outside it. Asserts modal disappears.")
+    @Description("Navigates to /street-light then clicks browser Back. Asserts return to /home.")
     public void testModalClosesOnOutsideClick_EP007() {
         System.out.println("Running: EP-007");
         EntryPointPage home = loginAndOpenHome();
         home.clickStreetLightCard();
-        try { Thread.sleep(1000); } catch (Exception ignored) {}
-        Assert.assertTrue(home.isModalVisible(),
-                "EP-007: modal did not open");
-        home.clickOutsideModal();
-        try { Thread.sleep(700); } catch (Exception ignored) {}
-        Assert.assertFalse(home.isModalVisible(),
-                "EP-007: modal still visible after outside click");
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("/street-light"));
+        driver.navigate().back();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("/home"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/home"),
+                "EP-007: Back navigation did not return to /home");
     }
 }

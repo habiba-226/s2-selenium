@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Sanity Suite">
+
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+
+    <test name="Sanity — Critical Happy Paths" preserve-order="true">
+        <classes>
+
+            <!-- 1. Login works -->
+            <class name="com.dxc.iot.tests.LoginTests">
+                <methods>
+                    <include name="testLogin"/>
+                </methods>
+            </class>
+
+            <!-- 2. Home page loads -->
+            <class name="com.dxc.iot.tests.HomeTests">
+                <methods>
+                    <include name="testHomePageFeatures"/>
+                </methods>
+            </class>
+
+            <!-- 3. Profile opens -->
+            <class name="com.dxc.iot.tests.ProfileTests">
+                <methods>
+                    <include name="testProfileNavigation_A010"/>
+                </methods>
+            </class>
+
+            <!-- 4. Settings page loads -->
+            <class name="com.dxc.iot.tests.SettingsTests">
+                <methods>
+                    <include name="testSettingsPageStructure_A024"/>
+                </methods>
+            </class>
+
+            <!-- 5. Entry point shows 3 dashboards -->
+            <class name="com.dxc.iot.tests.EntryPointTests">
+                <methods>
+                    <include name="testHomePageShowsThreeDashboardCards_EP001"/>
+                </methods>
+            </class>
+
+            <!-- 6. Traffic dashboard loads -->
+            <class name="com.dxc.iot.tests.TrafficDashboardTests">
+                <methods>
+                    <include name="testTrafficDashboardLoads_TD001"/>
+                </methods>
+            </class>
+
+            <!-- 7. Street Light dashboard loads -->
+            <class name="com.dxc.iot.tests.StreetLightDashboardTests">
+                <methods>
+                    <include name="testStreetLightDashboardLoads_SL001"/>
+                </methods>
+            </class>
+
+            <!-- 8. Air Pollution dashboard loads -->
+            <class name="com.dxc.iot.tests.AirPollutionDashboardTests">
+                <methods>
+                    <include name="testAirPollutionDashboardLoads_AP001"/>
+                </methods>
+            </class>
+
+            <!-- 9. Notifications system works -->
+            <class name="com.dxc.iot.tests.NotificationTests">
+                <methods>
+                    <include name="testNotificationBellVisible_NT001"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+
+</suite>
