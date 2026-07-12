@@ -1,0 +1,1 @@
+{"uuid":"cdd0fb64-d1b9-40e0-a955-773596027d8d","name":"com.dxc.iot.base.BaseTest.setUp","children":["19b0004a-814f-4e02-9468-153cfc29e45e"],"description":"","befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1783887705765,"stop":1783887708560}],"afters":[],"start":1783887705765,"stop":1783887708560}

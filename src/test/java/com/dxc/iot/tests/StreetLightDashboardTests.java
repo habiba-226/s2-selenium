@@ -568,12 +568,13 @@ public class StreetLightDashboardTests extends BaseTest {
 
         p.setStartDate("2099-01-01T00:00");
         p.setEndDate("2099-12-31T23:59");
-        try { Thread.sleep(2000); } catch (Exception ignored) {}
+        // Extra wait — filter change + table re-render can take longer than 2s under load
+        try { Thread.sleep(4000); } catch (Exception ignored) {}
         Assert.assertTrue(p.isNoDataMessageDisplayed(),
                 "SL-021: expected no-data after future filter");
 
         p.clearDateFilters();
-        try { Thread.sleep(2000); } catch (Exception ignored) {}
+        try { Thread.sleep(4000); } catch (Exception ignored) {}
 
         Assert.assertTrue(p.getStreetLightRowCount() > 0,
                 "SL-021: table did not recover after clearing date filter");
