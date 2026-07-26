@@ -217,14 +217,8 @@ public class TrafficDashboardTests extends BaseTest {
         Assert.assertTrue(p.isSpeedChartVisible(),
                 "CG-006: Average Speed chart title not found");
 
-        String densityTitle = driver.findElement(
-                        org.openqa.selenium.By.xpath(
-                                "//h3[contains(@class,'chart-title') and contains(.,'Traffic Density')]"))
-                .getText();
-        String speedTitle = driver.findElement(
-                        org.openqa.selenium.By.xpath(
-                                "//h3[contains(@class,'chart-title') and contains(.,'Average Speed')]"))
-                .getText();
+        String densityTitle = p.getDensityChartTitleText();
+        String speedTitle = p.getSpeedChartTitleText();
 
         Assert.assertTrue(densityTitle.contains("Traffic Density Over Time"),
                 "CG-006: Density chart title wrong: " + densityTitle);
@@ -285,8 +279,7 @@ public class TrafficDashboardTests extends BaseTest {
         TrafficDashboardPage p = loginAndOpenTrafficDashboard();
 
         // Click second expand button (speed chart)
-        driver.findElements(
-                org.openqa.selenium.By.cssSelector(".chart-hint")).get(1).click();
+        p.clickExpandSpeedChart();
         try { Thread.sleep(1000); } catch (Exception ignored) {}
 
         Assert.assertTrue(p.isExpandedViewVisible(),
@@ -305,8 +298,7 @@ public class TrafficDashboardTests extends BaseTest {
         System.out.println("Running: CG-010 — Expanded Speed Chart Closes");
         TrafficDashboardPage p = loginAndOpenTrafficDashboard();
 
-        driver.findElements(
-                org.openqa.selenium.By.cssSelector(".chart-hint")).get(1).click();
+        p.clickExpandSpeedChart();
         try { Thread.sleep(1000); } catch (Exception ignored) {}
 
         Assert.assertTrue(p.isExpandedViewVisible(),

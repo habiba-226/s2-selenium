@@ -5,7 +5,6 @@ import com.dxc.iot.pages.LoginPage;
 import com.dxc.iot.pages.HomePage;
 import com.dxc.iot.utils.ConfigReader;
 import com.dxc.iot.utils.ExcelUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -75,7 +74,7 @@ public class HomeTests extends BaseTest {
       case "TC-FE-A030":
         homePage.clickProfileAvatar();
         wait.until(ExpectedConditions.urlContains("/profile"));
-        driver.findElement(By.cssSelector(".logout-btn")).click();
+        homePage.clickLogout();
         wait.until(ExpectedConditions.urlContains(expectedVal));
         Assert.assertTrue(driver.getCurrentUrl().contains(expectedVal));
         break;
@@ -83,7 +82,7 @@ public class HomeTests extends BaseTest {
       // Notif Empty State
       case "TC-FE-A035":
         homePage.clickBell();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".notif-panel")));
+        homePage.waitForNotifPanelVisible();
         Assert.assertTrue(homePage.isNotifPanelVisible(), "Panel did not open");
         Assert.assertTrue(homePage.isNotifEmptyStateVisible(), "Empty state not shown");
         Assert.assertEquals(homePage.getNotificationCount(), 0, "Expected 0 items");
@@ -92,9 +91,9 @@ public class HomeTests extends BaseTest {
       // Panel Closes on Outside Click
       case "TC-FE-A036":
         homePage.clickBell();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".notif-panel")));
+        homePage.waitForNotifPanelVisible();
         homePage.clickOutside();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".notif-panel")));
+        homePage.waitForNotifPanelInvisible();
         Assert.assertFalse(homePage.isNotifPanelVisible(), "Panel should have closed");
         break;
 
@@ -106,24 +105,24 @@ public class HomeTests extends BaseTest {
       // Bell Toggles Panel
       case "TC-FE-A038":
         homePage.clickBell();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".notif-panel")));
+        homePage.waitForNotifPanelVisible();
         Assert.assertTrue(homePage.isNotifPanelVisible(), "Panel should open on first click");
         homePage.clickBell();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".notif-panel")));
+        homePage.waitForNotifPanelInvisible();
         Assert.assertFalse(homePage.isNotifPanelVisible(), "Panel should close on second click");
         break;
 
       // Clear All Hidden When Empty
       case "TC-FE-A039":
         homePage.clickBell();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".notif-panel")));
+        homePage.waitForNotifPanelVisible();
         Assert.assertFalse(homePage.isClearAllVisible(), "Clear All visible when empty");
         break;
 
       // Click Inside Doesn't Close
       case "TC-FE-A040":
         homePage.clickBell();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".notif-panel")));
+        homePage.waitForNotifPanelVisible();
         homePage.clickNotifHeader();
         try {
           Thread.sleep(500);
@@ -137,7 +136,7 @@ public class HomeTests extends BaseTest {
         homePage.openLocationDropdown();
         Assert.assertTrue(homePage.isLocationDropdownVisible(), "Location dropdown didn't open");
         homePage.clickBell();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".notif-panel")));
+        homePage.waitForNotifPanelVisible();
         Assert.assertTrue(homePage.isNotifPanelVisible(), "Notif Panel didn't open");
         Assert.assertFalse(homePage.isLocationDropdownVisible(), "Location dropdown stayed open");
         break;
@@ -169,8 +168,9 @@ public class HomeTests extends BaseTest {
       // Welcome title contains user's first name
       case "TC-FE-A057":
         String welcomeText = homePage.getWelcomeText();
-        Assert.assertTrue(welcomeText.contains(expectedVal),
-            "TC-FE-A057: Welcome title '" + welcomeText + "' does not contain '" + expectedVal + "'");
+        String expectedFirstName = ConfigReader.get("test.firstName");
+        Assert.assertTrue(welcomeText.contains(expectedFirstName),
+            "TC-FE-A057: Welcome title '" + welcomeText + "' does not contain '" + expectedFirstName + "'");
         break;
 
       // "My Profile" quick action → /profile
@@ -187,7 +187,7 @@ public class HomeTests extends BaseTest {
         Assert.assertTrue(homePage.isLocationDropdownVisible(),
             "TC-FE-A059: Dropdown did not open");
         homePage.clickOutside();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".location-dropdown")));
+        homePage.waitForLocationDropdownInvisible();
         Assert.assertFalse(homePage.isLocationDropdownVisible(),
             "TC-FE-A059: Dropdown should close on outside click");
         break;
@@ -222,5 +222,15 @@ public class HomeTests extends BaseTest {
       default:
         Assert.fail("Unknown Test Case ID: " + testCaseId);
     }
+  }
+
+  @Test
+  public void testHomePageLoads_Sanity() {
+    System.out.println("Running: Sanity — Home Page Loads");
+
+    HomePage homePage = login();
+
+    Assert.assertEquals(homePage.getSensorCardCount(), 3,
+        "Sanity Home: expected 3 sensor cards on home page load");
   }
 }

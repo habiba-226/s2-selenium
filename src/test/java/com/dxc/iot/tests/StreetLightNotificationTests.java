@@ -1,6 +1,6 @@
 package com.dxc.iot.tests;
 
-import com.dxc.iot.base.BaseTest;
+import com.dxc.iot.base.NotificationTestsBase;
 import com.dxc.iot.pages.LoginPage;
 import com.dxc.iot.pages.NotificationPage;
 import com.dxc.iot.pages.StreetLightDashboardPage;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Epic("Sprint 4 & 5 — Street Light Monitoring")
 @Feature("F#12 — Street Light Notifications")
-public class StreetLightNotificationTests extends BaseTest {
+public class StreetLightNotificationTests extends NotificationTestsBase {
 
     private NotificationPage loginAndOpenNotifications() {
         LoginPage loginPage = new LoginPage(driver);

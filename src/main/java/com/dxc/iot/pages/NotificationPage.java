@@ -128,4 +128,32 @@ public class NotificationPage extends BasePage {
         return driver.findElements(noNotificationsText).size() > 0
                 && driver.findElement(noNotificationsText).isDisplayed();
     }
+
+    private final By outsideClickTarget =
+            By.cssSelector("h1, h2, .welcome-title, body");
+
+    private final By insidePanelClickable =
+            By.cssSelector(".notif-panel h3, .notif-panel .notif-title, .notif-panel");
+
+    private final By anyElementInsidePanel =
+            By.cssSelector(".notif-panel *");
+
+    public void clickOutsidePanel() {
+        try {
+            driver.findElement(outsideClickTarget).click();
+        } catch (Exception e) {
+            new org.openqa.selenium.interactions.Actions(driver)
+                    .moveByOffset(0, 0).click().perform();
+        }
+    }
+
+    public void clickInsidePanel() {
+        try {
+            driver.findElement(insidePanelClickable).click();
+        } catch (Exception e) {
+            driver.findElements(anyElementInsidePanel)
+                    .stream().findFirst()
+                    .ifPresent(el -> { try { el.click(); } catch (Exception ignored) {} });
+        }
+    }
 }

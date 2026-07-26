@@ -2,6 +2,7 @@ package com.dxc.iot.tests;
 
 import com.dxc.iot.base.BaseTest;
 import com.dxc.iot.pages.LoginPage;
+import com.dxc.iot.pages.HomePage;
 import com.dxc.iot.pages.ProfilePage;
 import com.dxc.iot.utils.ConfigReader;
 import com.dxc.iot.utils.ExcelUtils;
@@ -136,7 +137,7 @@ public class ProfileTests extends BaseTest {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     wait.until(ExpectedConditions.urlContains("/home"));
 
-    driver.findElement(org.openqa.selenium.By.cssSelector(".avatar-circle")).click();
+    new HomePage(driver).clickProfileAvatar();
 
     wait.until(ExpectedConditions.urlContains("/profile"));
     Assert.assertTrue(driver.getCurrentUrl().contains("/profile"), "URL did not change to /profile");

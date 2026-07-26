@@ -5,9 +5,6 @@ import com.dxc.iot.pages.LoginPage;
 import com.dxc.iot.pages.SettingsPage;
 import com.dxc.iot.utils.ConfigReader;
 import com.dxc.iot.utils.ExcelUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -15,7 +12,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.List;
 
 public class SettingsTests extends BaseTest {
 
@@ -60,13 +56,7 @@ public class SettingsTests extends BaseTest {
     SettingsPage settings = loginAndOpenSettings();
     String saveLabel = sectionTitle.replace(" Sensors", " Settings");
 
-    // Use Ctrl+A and Backspace so Angular recognizes the form is truly empty
-    List<WebElement> sectionInputs = driver.findElements(By.xpath(
-        "//div[contains(@class,'settings-card') and .//h2[normalize-space()='" + sectionTitle + "']]//input"));
-    for (WebElement input : sectionInputs) {
-      input.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE); 
-      input.sendKeys(Keys.chord(Keys.COMMAND, "a"), Keys.BACK_SPACE); 
-    }
+    settings.clearAllInputsInSection(sectionTitle);
 
     if (!lowerStr.isEmpty()) {
       settings.setLowerThreshold(sectionTitle, metricLabel, lowerStr);
@@ -145,12 +135,7 @@ public class SettingsTests extends BaseTest {
 
     SettingsPage settings = loginAndOpenSettings();
 
-    // Clear all Traffic Sensors inputs first
-    List<WebElement> trafficInputs = driver.findElements(By.xpath(
-        "//div[contains(@class,'settings-card') and .//h2[normalize-space()='Traffic Sensors']]//input"));
-    for (WebElement input : trafficInputs) {
-      input.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
-    }
+    settings.clearAllInputsInSection("Traffic Sensors");
 
     settings.setLowerThreshold("Traffic Sensors", "Traffic Density", "350");
     settings.saveSection("Traffic Settings");
@@ -195,31 +180,23 @@ public class SettingsTests extends BaseTest {
   public void testSettingsPageStructure_A024() {
     System.out.println("Running: TC-FE-A024 — Settings Page Visual Structure");
 
-    loginAndOpenSettings();
+    SettingsPage settings = loginAndOpenSettings();
 
-    Assert.assertTrue(
-        driver.findElements(By.xpath("//h2[contains(@class,'card-title') and normalize-space()='Traffic Sensors']"))
-            .size() > 0,
+    Assert.assertTrue(settings.isSectionCardPresent("Traffic Sensors"),
         "TC-FE-A024: Traffic Sensors card not found");
-    Assert.assertTrue(driver
-        .findElements(By.xpath("//h2[contains(@class,'card-title') and normalize-space()='Air Pollution Sensors']"))
-        .size() > 0, "TC-FE-A024: Air Pollution Sensors card not found");
-    Assert.assertTrue(driver
-        .findElements(By.xpath("//h2[contains(@class,'card-title') and normalize-space()='Street Lights Sensors']"))
-        .size() > 0, "TC-FE-A024: Street Lights Sensors card not found");
+    Assert.assertTrue(settings.isSectionCardPresent("Air Pollution Sensors"),
+        "TC-FE-A024: Air Pollution Sensors card not found");
+    Assert.assertTrue(settings.isSectionCardPresent("Street Lights Sensors"),
+        "TC-FE-A024: Street Lights Sensors card not found");
 
-    Assert.assertTrue(
-        driver.findElements(By.xpath("//button[contains(@class,'btn-save') and contains(.,'Save Traffic Settings')]"))
-            .size() > 0,
+    Assert.assertTrue(settings.isSaveButtonPresentFor("Traffic Settings"),
         "TC-FE-A024: Save Traffic Settings button not found");
-    Assert.assertTrue(driver
-        .findElements(By.xpath("//button[contains(@class,'btn-save') and contains(.,'Save Air Pollution Settings')]"))
-        .size() > 0, "TC-FE-A024: Save Air Pollution Settings button not found");
-    Assert.assertTrue(driver
-        .findElements(By.xpath("//button[contains(@class,'btn-save') and contains(.,'Save Street Lights Settings')]"))
-        .size() > 0, "TC-FE-A024: Save Street Lights Settings button not found");
+    Assert.assertTrue(settings.isSaveButtonPresentFor("Air Pollution Settings"),
+        "TC-FE-A024: Save Air Pollution Settings button not found");
+    Assert.assertTrue(settings.isSaveButtonPresentFor("Street Lights Settings"),
+        "TC-FE-A024: Save Street Lights Settings button not found");
 
-    Assert.assertTrue(driver.findElements(By.cssSelector(".info-banner")).size() > 0,
+    Assert.assertTrue(settings.isInfoBannerPresent(),
         "TC-FE-A024: Info banner not found on page");
   }
 }

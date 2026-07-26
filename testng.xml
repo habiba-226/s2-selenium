@@ -22,6 +22,7 @@
             <class name="com.dxc.iot.tests.EntryPointTests"/>
             <class name="com.dxc.iot.tests.NotificationTests"/>
             <class name="com.dxc.iot.tests.TrafficDashboardTests"/>
+            <class name="com.dxc.iot.tests.EndToEndTests"/>
         </classes>
     </test>
 

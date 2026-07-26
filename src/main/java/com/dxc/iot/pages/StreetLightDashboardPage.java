@@ -381,6 +381,14 @@ public class StreetLightDashboardPage extends BasePage {
         driver.findElements(chartHints).get(0).click();
     }
 
+    public void clickExpandPowerChart() {
+        driver.findElements(chartHints).get(1).click();
+    }
+
+    public String getBrightnessHeaderText() {
+        return driver.findElement(brightnessHeader).getText().trim();
+    }
+
     public boolean isExpandedViewVisible() {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(5))

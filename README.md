@@ -52,6 +52,7 @@ This suite exercises the full frontend of the Smart IoT Monitoring System end-to
 | F#7 Traffic Dashboard | TrafficDashboardTests | 13 | Sprint 3 |
 | F#8 Filtering & Sorting | TrafficDashboardTests (DDT) | 26 | Sprint 3 |
 | F#9 Traffic Notifications | NotificationTests | 17 | Sprint 3 |
+| End-to-End Flows | EndToEndTests | — | Sprint 3 |
 | **F#10 Street Light Dashboard** | **StreetLightDashboardTests** | **12** | **Sprint 4 & 5** |
 | **F#11 Street Light Filtering & Sorting** | **StreetLightDashboardTests (DDT)** | **~34** | **Sprint 4 & 5** |
 | **F#12 Street Light Notifications** | **StreetLightNotificationTests** | **4** | **Sprint 4 & 5** |
@@ -74,7 +75,8 @@ s2-selenium/
 ├── src/main/java/com/dxc/iot/
 │   ├── base/
 │   │   ├── BasePage.java                # Shared page-level helpers (click, type, wait)
-│   │   └── BaseTest.java                # WebDriver setup / teardown / screenshot on fail
+│   │   ├── BaseTest.java                # WebDriver setup / teardown / screenshot on fail
+│   │   └── NotificationTestsBase.java   # Seeds guaranteed-breach thresholds once per suite (@BeforeSuite)
 │   ├── pages/                           # Page Object Model classes
 │   │   ├── LoginPage.java
 │   │   ├── SignUpPage.java
@@ -101,6 +103,7 @@ s2-selenium/
 │   ├── EntryPointTests.java
 │   ├── TrafficDashboardTests.java
 │   ├── NotificationTests.java
+│   ├── EndToEndTests.java
 │   ├── StreetLightDashboardTests.java         # NEW Sprint 4 & 5
 │   ├── StreetLightNotificationTests.java      # NEW Sprint 4 & 5
 │   ├── AirPollutionDashboardTests.java        # NEW Sprint 4 & 5
@@ -213,8 +216,12 @@ Then set `base.url=http://localhost:4200` in `config.properties`.
 The suite uses a single dedicated test account: **`valid@test.com` / `Pass123#`**.
 Sign up at the frontend once to create it. First name / last name should match `config.properties`.
 
-### 5. Configure notification thresholds
-For notification tests to actually fire alerts, set low thresholds in Settings so every sensor reading breaches them:
+### 5. Notification thresholds (automatic — no action needed)
+Notification tests need low thresholds in Settings so every sensor reading breaches them.
+This is now seeded automatically: `NotificationTestsBase` (extended by `NotificationTests`,
+`StreetLightNotificationTests`, and `AirPollutionNotificationTests`) sets these once per
+suite run via a `@BeforeSuite` hook, so the notification tests are hermetic and don't
+depend on `SettingsTests` running first or on this being done by hand:
 - Traffic Density → **1** (vehicles/hr)
 - Brightness Level → **99** (%)
 - Power Consumption → **1** (W)
@@ -231,8 +238,8 @@ implicit.wait=10
 base.url=http://localhost:4200
 test.email=valid@test.com
 test.password=Pass123#
-test.firstName=Seif
-test.lastName=Deibis
+test.firstName=John
+test.lastName=Doe
 ```
 
 `test.firstName` and `test.lastName` **must match the values you signed up with** — some tests (e.g., Home welcome-title check) compare against these.
@@ -303,7 +310,7 @@ zip -r allure-report.zip allure-report
 | Chrome doesn't launch | Update Chrome to the latest stable, or clear the Selenium Manager cache: `rm -rf ~/.cache/selenium` |
 | Tests fail with `Aspect weaver cannot determine any valid method` | AspectJ version too old for your Java. Ensure `pom.xml` uses `aspectjweaver 1.9.24+` |
 | Pagination click times out (`element not clickable`) | The button was below the viewport. Use `scrollIntoView` in the Page Object before clicking — already done for known cases |
-| Notification tests skip with "no notifications found" | Thresholds not set — see [Environment Setup](#environment-setup) step 5 |
+| Notification tests skip with "no notifications found" | `NotificationTestsBase`'s `@BeforeSuite` threshold seeding failed or didn't run — check it fired (see [Environment Setup](#environment-setup) step 5) and that the Settings save succeeded |
 | Test data locations don't match your DB | Update Excel rows in `src/test/resources/testdata/` |
 
 ### Test-account reset
@@ -349,8 +356,3 @@ Documented in the accompanying **Sprint 4_5_QA_Report.xlsx** (Bug Report tab). S
 | BUG-008 | Profile / Regression | Success/error banner rendered `[object Object]` | Fixed |
 
 ---
-
-## Credits
-
-- **QA Engineer (Frontend):** Seif Deibis
-- **QA Engineer (Backend):** Habiba

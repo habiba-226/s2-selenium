@@ -5,6 +5,7 @@ import com.dxc.iot.utils.ScreenshotUtils;
 import com.dxc.iot.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -15,11 +16,30 @@ public class BaseTest {
 
   @BeforeMethod
   public void setUp() {
-    driver = new ChromeDriver();
-    driver.manage().window().maximize();
+    ChromeOptions options = new ChromeOptions();
+    if (isHeadless()) {
+      options.addArguments("--headless=new");
+      options.addArguments("--no-sandbox");
+      options.addArguments("--disable-dev-shm-usage");
+      options.addArguments("--window-size=1920,1080");
+    }
+    driver = new ChromeDriver(options);
+    if (!isHeadless()) {
+      driver.manage().window().maximize();
+    }
     driver.manage().timeouts().implicitlyWait(
         Duration.ofSeconds(Long.parseLong(ConfigReader.get("implicit.wait"))));
     driver.get(ConfigReader.get("base.url"));
+  }
+
+  /*
+   * Headless mode defaults to off so local runs keep using a normal windowed
+   * browser. CI enables it with -Dheadless=true, or a headless=true entry in
+   * config.properties.
+   */
+  private boolean isHeadless() {
+    String value = System.getProperty("headless", ConfigReader.get("headless"));
+    return "true".equalsIgnoreCase(value);
   }
 
   @AfterMethod

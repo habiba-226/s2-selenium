@@ -25,4 +25,13 @@
         </classes>
     </test>
 
+    <test name="Sprint 4 &amp; 5 Regression" preserve-order="true">
+        <classes>
+            <class name="com.dxc.iot.tests.StreetLightDashboardTests"/>
+            <class name="com.dxc.iot.tests.StreetLightNotificationTests"/>
+            <class name="com.dxc.iot.tests.AirPollutionDashboardTests"/>
+            <class name="com.dxc.iot.tests.AirPollutionNotificationTests"/>
+        </classes>
+    </test>
+
 </suite>

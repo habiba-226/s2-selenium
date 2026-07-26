@@ -1,6 +1,6 @@
 package com.dxc.iot.tests;
 
-import com.dxc.iot.base.BaseTest;
+import com.dxc.iot.base.NotificationTestsBase;
 import com.dxc.iot.pages.AirPollutionDashboardPage;
 import com.dxc.iot.pages.LoginPage;
 import com.dxc.iot.pages.NotificationPage;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 @Epic("Sprint 4 & 5 — Air Pollution Monitoring")
 @Feature("F#15 — Air Pollution Notifications")
-public class AirPollutionNotificationTests extends BaseTest {
+public class AirPollutionNotificationTests extends NotificationTestsBase {
 
     private NotificationPage loginAndOpenNotifications() {
         LoginPage loginPage = new LoginPage(driver);

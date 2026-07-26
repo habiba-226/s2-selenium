@@ -4,8 +4,6 @@ import com.dxc.iot.base.BaseTest;
 import com.dxc.iot.pages.LoginPage;
 import com.dxc.iot.utils.ConfigReader;
 import com.dxc.iot.utils.ExcelUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -122,21 +120,18 @@ public class LoginTests extends BaseTest {
   }
 
   // Account locked banner after 3 failed attempts
+  // Uses the pre-existing lockout-test account in the DB (lockout@test.com /
+  // LockoutPass123@), since lockout is tracked server-side per user.
   @Test(priority = 4)
   public void testAccountLocked_A046() {
     System.out.println("Running: TC-FE-A046 — Account Locked on 3 Failed Attempts");
 
+    String email = "lockout@test.com";
+
     LoginPage loginPage = new LoginPage(driver);
     loginPage.open(ConfigReader.get("base.url"));
 
-    String email = "lockout@test.com";
-
     for (int attempt = 1; attempt <= 3; attempt++) {
-
-      driver.findElement(By.cssSelector("input[type='email']"))
-          .sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
-      driver.findElement(By.cssSelector("input[id='password']")) // ← was formControlName
-          .sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
 
       loginPage.enterEmail(email);
       loginPage.enterPassword("WrongPass123!");
@@ -152,9 +147,28 @@ public class LoginTests extends BaseTest {
         break;
     }
 
-    // Backend account-lockout not implemented. Assert the error banner is shown
-    // consistently after each failed attempt — this is what the frontend currently does.
-    Assert.assertTrue(loginPage.isErrorBannerDisplayed(),
-        "TC-FE-A046: Expected error banner after 3 failed attempts");
+    Assert.assertTrue(loginPage.isAccountLocked(),
+        "TC-FE-A046: Expected account to be locked after 3 failed attempts, but locked banner never appeared");
+  }
+
+  @Test
+  public void testLoginHappyPath_Sanity() {
+    System.out.println("Running: Sanity — Login Happy Path");
+
+    LoginPage loginPage = new LoginPage(driver);
+    loginPage.open(ConfigReader.get("base.url"));
+
+    String email = ConfigReader.get("test.email") != null ? ConfigReader.get("test.email") : "valid@test.com";
+    String password = ConfigReader.get("test.password") != null ? ConfigReader.get("test.password") : "Pass123#";
+
+    loginPage.enterEmail(email);
+    loginPage.enterPassword(password);
+    loginPage.clickSignIn();
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    wait.until(ExpectedConditions.urlContains("/home"));
+
+    Assert.assertTrue(driver.getCurrentUrl().contains("/home"),
+        "Sanity Login: expected redirect to /home but was: " + driver.getCurrentUrl());
   }
 }

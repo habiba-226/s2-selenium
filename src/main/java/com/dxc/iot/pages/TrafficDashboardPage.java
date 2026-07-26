@@ -414,6 +414,18 @@ public class TrafficDashboardPage extends BasePage {
         driver.findElements(chartHints).get(0).click();
     }
 
+    public void clickExpandSpeedChart() {
+        driver.findElements(chartHints).get(1).click();
+    }
+
+    public String getDensityChartTitleText() {
+        return driver.findElement(densityChartTitle).getText().trim();
+    }
+
+    public String getSpeedChartTitleText() {
+        return driver.findElement(speedChartTitle).getText().trim();
+    }
+
     public boolean isExpandedViewVisible() {
         try {
             new org.openqa.selenium.support.ui.WebDriverWait(driver, java.time.Duration.ofSeconds(5))

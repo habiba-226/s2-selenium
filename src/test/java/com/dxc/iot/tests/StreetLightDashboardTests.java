@@ -452,8 +452,7 @@ public class StreetLightDashboardTests extends BaseTest {
         System.out.println("Running: SL-CG-009 — Expand Power Chart");
         StreetLightDashboardPage p = loginAndOpenStreetLightDashboard();
 
-        driver.findElements(
-                org.openqa.selenium.By.cssSelector(".chart-hint")).get(1).click();
+        p.clickExpandPowerChart();
         try { Thread.sleep(1000); } catch (Exception ignored) {}
 
         Assert.assertTrue(p.isExpandedViewVisible(),
@@ -470,8 +469,7 @@ public class StreetLightDashboardTests extends BaseTest {
         System.out.println("Running: SL-CG-010 — Expanded Power Chart Closes");
         StreetLightDashboardPage p = loginAndOpenStreetLightDashboard();
 
-        driver.findElements(
-                org.openqa.selenium.By.cssSelector(".chart-hint")).get(1).click();
+        p.clickExpandPowerChart();
         try { Thread.sleep(1000); } catch (Exception ignored) {}
 
         Assert.assertTrue(p.isExpandedViewVisible(),
@@ -495,12 +493,10 @@ public class StreetLightDashboardTests extends BaseTest {
     public void testBrightnessSortHeaderChanges_SL004() {
         System.out.println("Running: SL-004");
         StreetLightDashboardPage p = loginAndOpenStreetLightDashboard();
-        String before = driver.findElement(
-                org.openqa.selenium.By.xpath("//th[contains(text(),'Brightness')]")).getText();
+        String before = p.getBrightnessHeaderText();
         p.clickBrightnessHeader();
         try { Thread.sleep(1000); } catch (Exception ignored) {}
-        String after = driver.findElement(
-                org.openqa.selenium.By.xpath("//th[contains(text(),'Brightness')]")).getText();
+        String after = p.getBrightnessHeaderText();
         Assert.assertNotEquals(after, before, "SL-004: sort indicator did not change");
     }
 

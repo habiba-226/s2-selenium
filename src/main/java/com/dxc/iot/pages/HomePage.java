@@ -4,6 +4,10 @@ import com.dxc.iot.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HomePage extends BasePage {
 
@@ -27,6 +31,7 @@ public class HomePage extends BasePage {
   private final By notifItems = By.cssSelector(".notif-item");
   private final By notifHeader = By.cssSelector(".notif-header");
   private final By documentBody = By.cssSelector(".welcome-title");
+  private final By logoutBtn = By.cssSelector(".logout-btn");
 
   // Sensor cards (3)
   private final By sensorCards = By.cssSelector(".sensor-card");
@@ -157,6 +162,25 @@ public class HomePage extends BasePage {
 
   public void clickOutside() {
     click(documentBody);
+  }
+
+  public void clickLogout() {
+    click(logoutBtn);
+  }
+
+  public void waitForNotifPanelVisible() {
+    new WebDriverWait(driver, Duration.ofSeconds(5))
+        .until(ExpectedConditions.visibilityOfElementLocated(notifPanel));
+  }
+
+  public void waitForNotifPanelInvisible() {
+    new WebDriverWait(driver, Duration.ofSeconds(5))
+        .until(ExpectedConditions.invisibilityOfElementLocated(notifPanel));
+  }
+
+  public void waitForLocationDropdownInvisible() {
+    new WebDriverWait(driver, Duration.ofSeconds(5))
+        .until(ExpectedConditions.invisibilityOfElementLocated(locationDropdown));
   }
 
   // Quick Actions

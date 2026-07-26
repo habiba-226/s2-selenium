@@ -380,6 +380,14 @@ public class AirPollutionDashboardPage extends BasePage {
         driver.findElements(chartHints).get(0).click();
     }
 
+    public void clickExpandOzoneChart() {
+        driver.findElements(chartHints).get(1).click();
+    }
+
+    public String getCoHeaderText() {
+        return driver.findElement(coHeader).getText().trim();
+    }
+
     public boolean isExpandedViewVisible() {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(5))

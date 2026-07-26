@@ -415,8 +415,7 @@ public class AirPollutionDashboardTests extends BaseTest {
         System.out.println("Running: AP-CG-009 — Expand Ozone Chart");
         AirPollutionDashboardPage p = loginAndOpenAirPollutionDashboard();
 
-        driver.findElements(
-                org.openqa.selenium.By.cssSelector(".chart-hint")).get(1).click();
+        p.clickExpandOzoneChart();
         try { Thread.sleep(1000); } catch (Exception ignored) {}
 
         Assert.assertTrue(p.isExpandedViewVisible(),
@@ -433,8 +432,7 @@ public class AirPollutionDashboardTests extends BaseTest {
         System.out.println("Running: AP-CG-010 — Expanded Ozone Chart Closes");
         AirPollutionDashboardPage p = loginAndOpenAirPollutionDashboard();
 
-        driver.findElements(
-                org.openqa.selenium.By.cssSelector(".chart-hint")).get(1).click();
+        p.clickExpandOzoneChart();
         try { Thread.sleep(1000); } catch (Exception ignored) {}
 
         Assert.assertTrue(p.isExpandedViewVisible(),
@@ -458,12 +456,10 @@ public class AirPollutionDashboardTests extends BaseTest {
     public void testCoSortHeaderChanges_AP004() {
         System.out.println("Running: AP-004");
         AirPollutionDashboardPage p = loginAndOpenAirPollutionDashboard();
-        String before = driver.findElement(
-                org.openqa.selenium.By.xpath("//th[contains(text(),'CO')]")).getText();
+        String before = p.getCoHeaderText();
         p.clickCoHeader();
         try { Thread.sleep(1000); } catch (Exception ignored) {}
-        String after = driver.findElement(
-                org.openqa.selenium.By.xpath("//th[contains(text(),'CO')]")).getText();
+        String after = p.getCoHeaderText();
         Assert.assertNotEquals(after, before, "AP-004: sort indicator did not change");
     }
 

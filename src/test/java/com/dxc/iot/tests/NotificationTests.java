@@ -1,18 +1,17 @@
 package com.dxc.iot.tests;
 
-import com.dxc.iot.base.BaseTest;
+import com.dxc.iot.base.NotificationTestsBase;
 import com.dxc.iot.pages.LoginPage;
 import com.dxc.iot.pages.NotificationPage;
 import com.dxc.iot.utils.ConfigReader;
 import io.qameta.allure.*;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.dxc.iot.pages.TrafficDashboardPage;
 
 @Epic("Sprint 3 — Traffic Monitoring")
 @Feature("F#9 — Traffic Notifications")
-public class NotificationTests extends BaseTest {
+public class NotificationTests extends NotificationTestsBase {
 
     private NotificationPage loginAndOpenNotifications() {
         LoginPage loginPage = new LoginPage(driver);
@@ -66,12 +65,7 @@ public class NotificationTests extends BaseTest {
         NotificationPage p = loginAndOpenNotifications();
         p.openNotifications();
         Assert.assertTrue(p.isNotificationPanelVisible(), "NT-008: did not open");
-        try {
-            driver.findElement(By.cssSelector("h1, h2, .welcome-title, body")).click();
-        } catch (Exception e) {
-            new org.openqa.selenium.interactions.Actions(driver)
-                    .moveByOffset(0, 0).click().perform();
-        }
+        p.clickOutsidePanel();
         try { Thread.sleep(700); } catch (Exception ignored) {}
         Assert.assertFalse(p.isNotificationPanelVisible(), "NT-008: still open");
     }
@@ -85,15 +79,7 @@ public class NotificationTests extends BaseTest {
         NotificationPage p = loginAndOpenNotifications();
         p.openNotifications();
         Assert.assertTrue(p.isNotificationPanelVisible(), "NT-011: did not open");
-        try {
-            driver.findElement(
-                            By.cssSelector(".notif-panel h3, .notif-panel .notif-title, .notif-panel"))
-                    .click();
-        } catch (Exception e) {
-            driver.findElements(By.cssSelector(".notif-panel *"))
-                    .stream().findFirst()
-                    .ifPresent(el -> { try { el.click(); } catch (Exception ignored) {} });
-        }
+        p.clickInsidePanel();
         try { Thread.sleep(500); } catch (Exception ignored) {}
         Assert.assertTrue(p.isNotificationPanelVisible(),
                 "NT-011: panel closed — stopPropagation may be broken");

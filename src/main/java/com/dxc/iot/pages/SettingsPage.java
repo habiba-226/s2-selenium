@@ -2,7 +2,11 @@ package com.dxc.iot.pages;
 
 import com.dxc.iot.base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
+
+import java.util.List;
 
 public class SettingsPage extends BasePage {
 
@@ -75,7 +79,18 @@ public class SettingsPage extends BasePage {
             "//span[contains(@class,'field-error')]");
   }
 
-  //  Actions 
+  private By sectionInputs(String sectionTitle) {
+    return By.xpath(
+        "//div[contains(@class,'settings-card') and .//h2[normalize-space()='" + sectionTitle + "']]//input");
+  }
+
+  private By sectionCardTitle(String sectionTitle) {
+    return By.xpath("//h2[contains(@class,'card-title') and normalize-space()='" + sectionTitle + "']");
+  }
+
+  private final By infoBanner = By.cssSelector(".info-banner");
+
+  //  Actions
 
   public SettingsPage setLowerThreshold(String sectionTitle, String metricLabel, String value) {
     type(thresholdInput(sectionTitle, metricLabel, 1), value);
@@ -101,7 +116,31 @@ public class SettingsPage extends BasePage {
     click(saveButtonFor(sectionLabel));
   }
 
-  // Assertions 
+  /**
+   * Clears every input in a section via Ctrl+A/Backspace (and Cmd+A for macOS)
+   * so Angular recognizes the form as truly empty.
+   */
+  public void clearAllInputsInSection(String sectionTitle) {
+    List<WebElement> inputs = driver.findElements(sectionInputs(sectionTitle));
+    for (WebElement input : inputs) {
+      input.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
+      input.sendKeys(Keys.chord(Keys.COMMAND, "a"), Keys.BACK_SPACE);
+    }
+  }
+
+  public boolean isSectionCardPresent(String sectionTitle) {
+    return driver.findElements(sectionCardTitle(sectionTitle)).size() > 0;
+  }
+
+  public boolean isSaveButtonPresentFor(String sectionLabel) {
+    return driver.findElements(saveButtonFor(sectionLabel)).size() > 0;
+  }
+
+  public boolean isInfoBannerPresent() {
+    return driver.findElements(infoBanner).size() > 0;
+  }
+
+  // Assertions
 
   public boolean isSuccessShownFor(String sectionTitle) {
     return isDisplayed(sectionSuccessBanner(sectionTitle));

@@ -12,14 +12,14 @@
             <!-- 1. Login works -->
             <class name="com.dxc.iot.tests.LoginTests">
                 <methods>
-                    <include name="testLogin"/>
+                    <include name="testLoginHappyPath_Sanity"/>
                 </methods>
             </class>
 
             <!-- 2. Home page loads -->
             <class name="com.dxc.iot.tests.HomeTests">
                 <methods>
-                    <include name="testHomePageFeatures"/>
+                    <include name="testHomePageLoads_Sanity"/>
                 </methods>
             </class>
 
@@ -69,6 +69,13 @@
             <class name="com.dxc.iot.tests.NotificationTests">
                 <methods>
                     <include name="testNotificationBellVisible_NT001"/>
+                </methods>
+            </class>
+
+            <!-- 10. End-to-end: login -> traffic dashboard -> sort -> notifications -->
+            <class name="com.dxc.iot.tests.EndToEndTests">
+                <methods>
+                    <include name="testLoginToTrafficDashboardToNotifications_E2E001"/>
                 </methods>
             </class>
 

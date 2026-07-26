@@ -6,7 +6,6 @@ import com.dxc.iot.pages.ProfilePage;
 import com.dxc.iot.pages.SettingsPage;
 import com.dxc.iot.utils.ConfigReader;
 import jdk.jfr.Description;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -113,7 +112,8 @@ public class SessionTests extends BaseTest {
                 new WebDriverWait(driver, Duration.ofSeconds(5))
                                 .until(ExpectedConditions.urlContains("/profile"));
 
-                driver.findElement(By.cssSelector("button.logout-btn")).click();
+                ProfilePage profilePage = new ProfilePage(driver);
+                profilePage.clickSignOut();
 
                 new WebDriverWait(driver, Duration.ofSeconds(5))
                                 .until(ExpectedConditions.urlContains("/login"));
