@@ -1,108 +1,91 @@
 package com.dxc.iot.base;
 
-import org.testng.annotations.BeforeSuite;
+import com.dxc.iot.pages.LoginPage;
+import com.dxc.iot.pages.SettingsPage;
 import com.dxc.iot.utils.ConfigReader;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeSuite;
 
+import java.time.Duration;
+
+/**
+ * Shared base for the notification test classes. Seeds guaranteed-breach
+ * thresholds once per suite run (values match README "Environment Setup" step 5),
+ * so notification tests no longer depend on SettingsTests running first,
+ * suite XML ordering, or a human setting these by hand in the UI.
+ *
+ * Runs in its own short-lived WebDriver, separate from the per-test-method
+ * driver BaseTest creates in @BeforeMethod, since @BeforeSuite fires before
+ * any @BeforeMethod and before that field is initialized.
+ */
 public class NotificationTestsBase extends BaseTest {
 
-    @BeforeSuite
-    public void seedThresholdSettings() {
-        System.out.println("=== Seeding guaranteed-breach threshold settings ===");
-        try {
-            String baseUrl = ConfigReader.get("base.url");
-            String backendUrl = System.getProperty("backend.url");
-            if (backendUrl == null || backendUrl.isEmpty()) {
-                if (baseUrl.contains("localhost:4200")) {
-                    backendUrl = "http://localhost:8080";
-                } else if (baseUrl.contains("localhost")) {
-                    backendUrl = "http://localhost:8080";
-                } else {
-                    backendUrl = baseUrl.replace("frontend-route", "backend-route");
-                    if (backendUrl.endsWith("/")) {
-                        backendUrl = backendUrl.substring(0, backendUrl.length() - 1);
-                    }
-                }
-            }
-            System.out.println("Frontend URL: " + baseUrl);
-            System.out.println("Backend URL: " + backendUrl);
-
-            HttpClient client = HttpClient.newHttpClient();
-
-            // 1. Log in to get JWT token
-            String loginJson = "{\"email\":\"" + ConfigReader.get("test.email") + "\",\"password\":\"" + ConfigReader.get("test.password") + "\"}";
-            HttpRequest loginRequest = HttpRequest.newBuilder()
-                    .uri(URI.create(backendUrl + "/api/auth/login"))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(loginJson))
-                    .build();
-
-            HttpResponse<String> loginResponse = client.send(loginRequest, HttpResponse.BodyHandlers.ofString());
-            if (loginResponse.statusCode() != 200) {
-                throw new RuntimeException("Login failed with status: " + loginResponse.statusCode() + " Body: " + loginResponse.body());
-            }
-
-            Pattern pattern = Pattern.compile("\"auth_token\"\\s*:\\s*\"([^\"]+)\"");
-            Matcher matcher = pattern.matcher(loginResponse.body());
-            if (!matcher.find()) {
-                throw new RuntimeException("auth_token not found in login response: " + loginResponse.body());
-            }
-            String token = matcher.group(1);
-            System.out.println("Logged in successfully. Token acquired.");
-
-            // 2. Fetch existing settings to clean up
-            HttpRequest getSettingsRequest = HttpRequest.newBuilder()
-                    .uri(URI.create(backendUrl + "/api/settings"))
-                    .header("Authorization", "Bearer " + token)
-                    .GET()
-                    .build();
-
-            HttpResponse<String> getSettingsResponse = client.send(getSettingsRequest, HttpResponse.BodyHandlers.ofString());
-            String settingsBody = getSettingsResponse.body();
-
-            Pattern uuidPattern = Pattern.compile("\"id\"\\s*:\\s*\"([^\"]+)\"");
-            Matcher uuidMatcher = uuidPattern.matcher(settingsBody);
-            while (uuidMatcher.find()) {
-                String id = uuidMatcher.group(1);
-                System.out.println("Deleting existing setting ID: " + id);
-                HttpRequest deleteRequest = HttpRequest.newBuilder()
-                        .uri(URI.create(backendUrl + "/api/settings/" + id))
-                        .header("Authorization", "Bearer " + token)
-                        .DELETE()
-                        .build();
-                client.send(deleteRequest, HttpResponse.BodyHandlers.discarding());
-            }
-
-            // 3. Post new low-threshold settings to guarantee breach/alert creation
-            String[] payloads = {
-                "{\"type\":\"Traffic\",\"metric\":\"density\",\"thresholdValue\":1.0,\"alertType\":\"above\"}",
-                "{\"type\":\"Air_Pollution\",\"metric\":\"co\",\"thresholdValue\":1.0,\"alertType\":\"above\"}",
-                "{\"type\":\"Street_Light\",\"metric\":\"power\",\"thresholdValue\":1.0,\"alertType\":\"above\"}"
-            };
-
-            for (String payload : payloads) {
-                System.out.println("Posting setting: " + payload);
-                HttpRequest postRequest = HttpRequest.newBuilder()
-                        .uri(URI.create(backendUrl + "/api/settings"))
-                        .header("Content-Type", "application/json")
-                        .header("Authorization", "Bearer " + token)
-                        .POST(HttpRequest.BodyPublishers.ofString(payload))
-                        .build();
-                HttpResponse<String> postResponse = client.send(postRequest, HttpResponse.BodyHandlers.ofString());
-                if (postResponse.statusCode() != 201) {
-                    System.out.println("WARNING: Failed to post setting: " + postResponse.statusCode() + " Body: " + postResponse.body());
-                }
-            }
-            System.out.println("=== Seeding completed successfully ===");
-
-        } catch (Exception e) {
-            System.err.println("Failed to seed threshold settings: " + e.getMessage());
-            e.printStackTrace();
-        }
+  @BeforeSuite(alwaysRun = true)
+  public void seedBreachThresholds() {
+    ChromeOptions options = new ChromeOptions();
+    if (isHeadless()) {
+      options.addArguments("--headless=new");
+      options.addArguments("--no-sandbox");
+      options.addArguments("--disable-dev-shm-usage");
+      options.addArguments("--window-size=1920,1080");
     }
+
+    WebDriver seedDriver = new ChromeDriver(options);
+    try {
+      seedDriver.manage().timeouts().implicitlyWait(
+          Duration.ofSeconds(Long.parseLong(ConfigReader.get("implicit.wait"))));
+
+      String baseUrl = ConfigReader.get("base.url");
+      String email = ConfigReader.get("test.email");
+      String password = ConfigReader.get("test.password");
+
+      LoginPage loginPage = new LoginPage(seedDriver);
+      loginPage.open(baseUrl);
+      loginPage.signIn(email != null ? email : "valid@test.com",
+          password != null ? password : "Pass123#");
+      new WebDriverWait(seedDriver, Duration.ofSeconds(10))
+          .until(ExpectedConditions.urlContains("/home"));
+
+      SettingsPage settings = new SettingsPage(seedDriver);
+      settings.open(baseUrl);
+      WebDriverWait wait = new WebDriverWait(seedDriver, Duration.ofSeconds(20));
+
+      settings.clearAllInputsInSection(SettingsPage.SECTION_TRAFFIC);
+      settings.setUpperThreshold(SettingsPage.SECTION_TRAFFIC,
+          SettingsPage.METRIC_TRAFFIC_DENSITY, "1");
+      settings.saveSection("Traffic Settings");
+      wait.until(d -> settings.isSuccessShownFor(SettingsPage.SECTION_TRAFFIC));
+
+      // Brightness uses the LOWER threshold: readings normally sit well below 99%,
+      // so a lower bound of 99 guarantees a "below the limit" breach. Power
+      // Consumption uses the UPPER threshold like the other low-value metrics below.
+      settings.clearAllInputsInSection(SettingsPage.SECTION_STREET_LIGHTS);
+      settings.setLowerThreshold(SettingsPage.SECTION_STREET_LIGHTS,
+          SettingsPage.METRIC_BRIGHTNESS_LEVEL, "99");
+      settings.setUpperThreshold(SettingsPage.SECTION_STREET_LIGHTS,
+          SettingsPage.METRIC_POWER_CONSUMPTION, "1");
+      settings.saveSection("Street Lights Settings");
+      wait.until(d -> settings.isSuccessShownFor(SettingsPage.SECTION_STREET_LIGHTS));
+
+      settings.clearAllInputsInSection(SettingsPage.SECTION_AIR_POLLUTION);
+      settings.setUpperThreshold(SettingsPage.SECTION_AIR_POLLUTION,
+          SettingsPage.METRIC_CO_LEVEL, "1");
+      settings.setUpperThreshold(SettingsPage.SECTION_AIR_POLLUTION,
+          SettingsPage.METRIC_OZONE, "0.001");
+      settings.saveSection("Air Pollution Settings");
+      wait.until(d -> settings.isSuccessShownFor(SettingsPage.SECTION_AIR_POLLUTION));
+
+    } finally {
+      seedDriver.quit();
+    }
+  }
+
+  private boolean isHeadless() {
+    String value = System.getProperty("headless", ConfigReader.get("headless"));
+    return "true".equalsIgnoreCase(value);
+  }
 }
