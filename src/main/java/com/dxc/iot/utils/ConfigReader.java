@@ -15,6 +15,10 @@ public class ConfigReader {
     }
 
     public static String get(String key) {
+        String systemVal = System.getProperty(key);
+        if (systemVal != null) {
+            return systemVal;
+        }
         return props.getProperty(key);
     }
 }
