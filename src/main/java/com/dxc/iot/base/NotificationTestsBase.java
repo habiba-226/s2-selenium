@@ -43,6 +43,46 @@ public class NotificationTestsBase extends BaseTest {
       String email = ConfigReader.get("test.email");
       String password = ConfigReader.get("test.password");
 
+      // Pre-seed/signup the test accounts via backend API to handle clean/recreated database environments
+      try {
+          String backendUrl = System.getProperty("backend.url");
+          if (backendUrl == null || backendUrl.isEmpty()) {
+              if (baseUrl.contains("localhost:4200")) {
+                  backendUrl = "http://localhost:8080";
+              } else if (baseUrl.contains("localhost")) {
+                  backendUrl = "http://localhost:8080";
+              } else {
+                  backendUrl = baseUrl.replace("frontend-route", "backend-route");
+                  if (backendUrl.endsWith("/")) {
+                      backendUrl = backendUrl.substring(0, backendUrl.length() - 1);
+                  }
+              }
+          }
+          System.out.println("Pre-seeding users at backend: " + backendUrl);
+          java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
+
+          // Sign up valid@test.com
+          String validUserJson = "{\"email\":\"valid@test.com\",\"password\":\"Pass123#\",\"firstName\":\"John\",\"lastName\":\"Doe\"}";
+          java.net.http.HttpRequest req1 = java.net.http.HttpRequest.newBuilder()
+                  .uri(java.net.URI.create(backendUrl + "/api/auth/signup"))
+                  .header("Content-Type", "application/json")
+                  .POST(java.net.http.HttpRequest.BodyPublishers.ofString(validUserJson))
+                  .build();
+          client.send(req1, java.net.http.HttpResponse.BodyHandlers.discarding());
+
+          // Sign up lockout@test.com
+          String lockoutUserJson = "{\"email\":\"lockout@test.com\",\"password\":\"LockoutPass123@\",\"firstName\":\"Lock\",\"lastName\":\"Out\"}";
+          java.net.http.HttpRequest req2 = java.net.http.HttpRequest.newBuilder()
+                  .uri(java.net.URI.create(backendUrl + "/api/auth/signup"))
+                  .header("Content-Type", "application/json")
+                  .POST(java.net.http.HttpRequest.BodyPublishers.ofString(lockoutUserJson))
+                  .build();
+          client.send(req2, java.net.http.HttpResponse.BodyHandlers.discarding());
+          System.out.println("Test users registered/verified successfully.");
+      } catch (Exception e) {
+          System.out.println("Warning: test user seeding API call: " + e.getMessage());
+      }
+
       LoginPage loginPage = new LoginPage(seedDriver);
       loginPage.open(baseUrl);
       loginPage.signIn(email != null ? email : "valid@test.com",
