@@ -62,7 +62,14 @@ public class NotificationTestsBase extends BaseTest {
           java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
 
           // Sign up valid@test.com
-          String validUserJson = "{\"email\":\"valid@test.com\",\"password\":\"Pass123#\",\"firstName\":\"John\",\"lastName\":\"Doe\"}";
+          String validUserJson = "{" +
+                  "\"email\":\"valid@test.com\"," +
+                  "\"password\":\"Pass123#\"," +
+                  "\"confirmPassword\":\"Pass123#\"," +
+                  "\"firstName\":\"John\"," +
+                  "\"lastName\":\"Doe\"," +
+                  "\"profilePicture\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"" +
+                  "}";
           java.net.http.HttpRequest req1 = java.net.http.HttpRequest.newBuilder()
                   .uri(java.net.URI.create(backendUrl + "/api/auth/signup"))
                   .header("Content-Type", "application/json")
@@ -71,7 +78,14 @@ public class NotificationTestsBase extends BaseTest {
           client.send(req1, java.net.http.HttpResponse.BodyHandlers.discarding());
 
           // Sign up lockout@test.com
-          String lockoutUserJson = "{\"email\":\"lockout@test.com\",\"password\":\"LockoutPass123@\",\"firstName\":\"Lock\",\"lastName\":\"Out\"}";
+          String lockoutUserJson = "{" +
+                  "\"email\":\"lockout@test.com\"," +
+                  "\"password\":\"LockoutPass123@\"," +
+                  "\"confirmPassword\":\"LockoutPass123@\"," +
+                  "\"firstName\":\"Lock\"," +
+                  "\"lastName\":\"Out\"," +
+                  "\"profilePicture\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"" +
+                  "}";
           java.net.http.HttpRequest req2 = java.net.http.HttpRequest.newBuilder()
                   .uri(java.net.URI.create(backendUrl + "/api/auth/signup"))
                   .header("Content-Type", "application/json")
